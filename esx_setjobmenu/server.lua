@@ -2,30 +2,30 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterNetEvent('powx_tuto:getjob')
-AddEventHandler('powx_tuto:getjob', function()
+RegisterNetEvent('esx_setjobmenu:getjob')
+AddEventHandler('esx_setjobmenu:getjob', function()
 	local job1 = MySQL.Sync.fetchAll("SELECT * FROM jobs ")
 	
-	TriggerClientEvent('powx_tuto:insertjob', source, job1)
+	TriggerClientEvent('esx_setjobmenu:insertjob', source, job1)
 end)
 
-RegisterNetEvent('powx_tuto:getgrade')
-AddEventHandler('powx_tuto:getgrade', function(namejob)
+RegisterNetEvent('esx_setjobmenu:getgrade')
+AddEventHandler('esx_setjobmenu:getgrade', function(namejob)
 	local _source = source
 	
 	MySQL.Async.fetchAll('SELECT job_name, grade, label FROM job_grades WHERE job_name = @jobname', { ['@jobname'] = namejob }, function(result)
 		local grade = result
-		TriggerEvent('powx_tuto:getgrade2', _source, grade)
+		TriggerEvent('esx_setjobmenu:getgrade2', _source, grade)
 	end)
 end)
 
-RegisterNetEvent('powx_tuto:getgrade2')
-AddEventHandler('powx_tuto:getgrade2', function(_source, grade)
-	TriggerClientEvent('powx_tuto:insertgrade', _source, grade)
+RegisterNetEvent('esx_setjobmenu:getgrade2')
+AddEventHandler('esx_setjobmenu:getgrade2', function(_source, grade)
+	TriggerClientEvent('esx_setjobmenu:insertgrade', _source, grade)
 end)
 
-RegisterNetEvent('powx_tuto:putgrade')
-AddEventHandler('powx_tuto:putgrade', function(jobf, gradef, gradelabel, joblabel, forme, idplayer)
+RegisterNetEvent('esx_setjobmenu:putgrade')
+AddEventHandler('esx_setjobmenu:putgrade', function(jobf, gradef, gradelabel, joblabel, forme, idplayer)
 	if forme then
 		local xPlayer = ESX.GetPlayerFromId(source)
 		xPlayer.setJob(jobf, gradef)
@@ -37,12 +37,40 @@ AddEventHandler('powx_tuto:putgrade', function(jobf, gradef, gradelabel, joblabe
 	end
 end)
 
-RegisterNetEvent('essai:getplayer')
-AddEventHandler('essai:getplayer', function()
+RegisterNetEvent('esx_setjobmenu:getplayer')
+AddEventHandler('esx_setjobmenu:getplayer', function()
 	local info = {}
 	local player = GetPlayers()
 	for k,v in pairs(player) do
 		table.insert(info, {name= GetPlayerName(v), id= v})
 	end
-	TriggerClientEvent('essai:recupinfo', source, info)
+	TriggerClientEvent('esx_setjobmenu:recupinfo', source, info)
 end)
+
+if Config.AdminSystem then
+
+	RegisterServerEvent('esx_setjobmenu:isAllowedToChange')
+	AddEventHandler('esx_setjobmenu:isAllowedToChange', function()
+		print('vérif')
+		local allowed = false
+		for i,id in ipairs(Config.Admins) do
+			for x,pid in ipairs(GetPlayerIdentifiers(source)) do
+				if string.lower(pid) == string.lower(id) then
+					allowed = true
+				end
+				TriggerClientEvent('esx_setjobmenu:admin', source, allowed)
+			end
+		end
+	end)
+
+	ESX.RegisterServerCallback('esx_setjobmenu:allowchange', function(source, allowed)
+		local allowed = false
+		for i,id in ipairs(Config.Admins) do
+			for x,pid in ipairs(GetPlayerIdentifiers(source)) do
+				if string.lower(pid) == string.lower(id) then
+					allowed = true
+				end
+			end
+		end
+	end)
+end

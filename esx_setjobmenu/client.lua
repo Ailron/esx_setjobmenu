@@ -5,6 +5,7 @@ NameJobfornotification = nil
 Joueur = {}
 Id = nil
 forme = nil  
+local allowed
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -13,35 +14,80 @@ Citizen.CreateThread(function()
 	end
 end)
 
+if Config.AdminSystem == true then
+
+	RegisterNetEvent('esx:playerLoaded')
+	AddEventHandler('esx:playerLoaded', function(playerData)
+		TriggerServerEvent('esx_setjobmenu:isAllowedToChange')
+	end)
+	
+	RegisterNetEvent('esx_setjobmenu:admin')
+	AddEventHandler('esx_setjobmenu:admin', function(allow)
+		print(allow)
+		if allow then
+			allowed = true
+		end
+	end)
+end
+
 RMenu.Add('example', 'main', RageUI.CreateMenu(_U('attribuerjobmenu'), _U('attribuerjobmenu1')))
 RMenu.Add('example', 'id', RageUI.CreateMenu(_U('choisiridmenu'), _U('choisiridmenu1')))
 RMenu.Add('example', 'metier', RageUI.CreateSubMenu(RMenu:Get('example', 'main'), _U('metiermenu'), _U('metiermenu1')))
 RMenu.Add('example', 'grade', RageUI.CreateSubMenu(RMenu:Get('example', 'main'), _U('grademenu'), _U('grademenu1')))
 
-RegisterNetEvent('powx_tuto:insertjob')
-AddEventHandler('powx_tuto:insertjob', function(namejob)
+RegisterNetEvent('esx_setjobmenu:insertjob')
+AddEventHandler('esx_setjobmenu:insertjob', function(namejob)
 	Job = namejob
 end)
 
-RegisterNetEvent('powx_tuto:insertgrade')
-AddEventHandler('powx_tuto:insertgrade', function(gradejob)
+RegisterNetEvent('esx_setjobmenu:insertgrade')
+AddEventHandler('esx_setjobmenu:insertgrade', function(gradejob)
 	Grade = gradejob
 end)
 
-RegisterNetEvent('powx_tuto:openmenu')
-AddEventHandler('powx_tuto:openmenu', function()
+RegisterNetEvent('esx_setjobmenu:openmenu')
+AddEventHandler('esx_setjobmenu:openmenu', function()
 	RageUI.Visible(RMenu:Get('example', 'main'), not RageUI.Visible(RMenu:Get('example', 'main')))
 end)
 
-RegisterNetEvent('essai:recupinfo')
-AddEventHandler('essai:recupinfo', function(player)
+RegisterNetEvent('esx_setjobmenu:recupinfo')
+AddEventHandler('esx_setjobmenu:recupinfo', function(player)
 	Joueur = player
 end)
 
 Citizen.CreateThread(function()
-	TriggerServerEvent('powx_tuto:getjob')
-	TriggerServerEvent('essai:getplayer')
+	TriggerServerEvent('esx_setjobmenu:getjob')
+	TriggerServerEvent('esx_setjobmenu:getplayer')
+	TriggerServerEvent('esx_setjobmenu:isAllowedToChange')
     while true do
+		if Config.AdminSystem == true then
+			if Config.ActiveControl == true then
+				if allowed then
+					if IsControlJustPressed(0, 57) then -- It's F10
+						TriggerEvent('esx_setjobmenu:openmenu')
+					end
+				end
+			end
+			if Config.ActiveCommand == true then
+				if allowed then
+					RegisterCommand("jobmenu", function(source, args, rawCommand)
+						RageUI.Visible(RMenu:Get('example', 'main'), not RageUI.Visible(RMenu:Get('example', 'main')))
+					end)
+				end
+			end
+		else
+			if Config.ActiveControl == true then
+				if IsControlJustPressed(0, 57) then -- It's F10
+					TriggerEvent('esx_setjobmenu:openmenu')
+				end
+			end
+			if Config.ActiveCommand == true then
+				RegisterCommand("jobmenu", function(source, args, rawCommand)
+					RageUI.Visible(RMenu:Get('example', 'main'), not RageUI.Visible(RMenu:Get('example', 'main')))
+				end)
+			end
+		end
+		
         RageUI.IsVisible(RMenu:Get('example', 'main'), true, true, true, function()
 		
             RageUI.Button(_U('attribuerjobme'), _U('attribuerjobme'), {RightLabel = "→→→"},true, function(Hovered, Active, Selected)
@@ -76,7 +122,7 @@ Citizen.CreateThread(function()
 				RageUI.Button(v.label, _U("choisirmetier")..v.label, {RightLabel = ""}, true, function(Hovered, Active, Selected)
 					if (Selected) then
 						NameJobfornotification = v.label
-						TriggerServerEvent('powx_tuto:getgrade', v.name)
+						TriggerServerEvent('esx_setjobmenu:getgrade', v.name)
 					end
 				end, RMenu:Get('example', 'grade'))
 			end
@@ -87,7 +133,7 @@ Citizen.CreateThread(function()
 			for k,v in ipairs(Grade) do
 				RageUI.Button(v.label, _U("choisirgrade")..v.label, {RightLabel = ""}, true, function(Hovered, Active, Selected)
 					if (Selected) then
-						TriggerServerEvent('powx_tuto:putgrade', v.job_name, v.grade, v.label, NameJobfornotification, forme, Id)
+						TriggerServerEvent('esx_setjobmenu:putgrade', v.job_name, v.grade, v.label, NameJobfornotification, forme, Id)
 					end
 				end)
 			end

@@ -9,7 +9,7 @@ grâce à une liste qui affiche tout les joueurs connectés !
 
 Le script prend dans votre base de données tous les métiers et grades que vous avez et les inserts dans le menu .  
 
-Vous pourrez l'ouvrir en l'ajoutant dans votre menu admin grâce à l'évent que j'ai laisser .  
+Vous pourrez ouvrir le menu en choisissant différentes options dans le Config.lua  .  
 
 Il dispose de 3 traductions : FR ; EN ; BR .  
 
@@ -25,7 +25,7 @@ You can setjob yourself without needing your ID thanks to all your jobs and rank
 
 The script takes from your database all the jobs and grade you have and inserts them into the menu.  
 
-You can open it by adding it to your admin menu using a Event I put.  
+You can open the menu by choosing different options in Config.lua.
 
 It has 3 translations: FR; EN ; BR .  
 

@@ -1,0 +1,19 @@
+Locales['en'] = {
+	['attribuerjobmenu'] = 'Assign a job',
+	['attribuerjobmenu1'] = 'Choose an option',
+	['attribuerjobme'] = 'Assign yourself a job',
+	['attribuerjob'] = 'Assign a job',
+	['choisiridmenu'] = 'Connected Players',
+	['choisiridmenu1'] = 'Choose a player',
+	['choisirid'] = 'Choose player ',
+	['choisirmetier'] = 'Choose to go to the ',
+	['choisirgrade'] = 'Choose to become ',
+	['metiermenu'] = 'Job',
+	['metiermenu1'] = 'Choose a job',
+	['grademenu'] = 'Grade',
+	['grademenu1'] = 'Choose a grade',
+	['notif1'] = 'You have appropriated the job of ~r~',
+	['notif2'] = '~w~ to become ~b~',
+	['notif3'] = 'You gave him the job of ~r~',
+	['notif4'] = '~w~ so that it becomes ~b~'
+}

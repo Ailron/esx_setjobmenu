@@ -1,0 +1,19 @@
+Locales['br'] = {
+	['attribuerjobmenu'] = 'Atribuir um trabalho',
+	['attribuerjobmenu1'] = 'Escolha uma opção',
+	['attribuerjobme'] = 'Atribuir-se un trabalho',
+	['attribuerjob'] = 'Atribuir um trabalho',
+	['choisiridmenu'] = 'Jogadores conectados',
+	['choisiridmenu1'] = 'Escolha um jogador',
+	['choisirid'] = 'Escolha jogador ',
+	['choisirmetier'] = 'Escolha ir dentro a ',
+	['choisirgrade'] = 'Escolha de estar ',
+	['metiermenu'] = 'trabalho',
+	['metiermenu1'] = 'Escolha un trabalho',
+	['grademenu'] = 'Grau',
+	['grademenu1'] = 'Escolha un Grau',
+	['notif1'] = 'Você se apropriou o trabalho de ~r~',
+	['notif2'] = '~w~ tornar-se ~b~',
+	['notif3'] = 'Você deu a ele o trabalho de ~r~',
+	['notif4'] = '~w~ para que ele se torne ~b~'
+}

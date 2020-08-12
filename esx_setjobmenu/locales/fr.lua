@@ -1,0 +1,19 @@
+Locales['fr'] = {
+	['attribuerjobmenu'] = 'Attribuer un job',
+	['attribuerjobmenu1'] = 'Choisir une option',
+	['attribuerjobme'] = 'S\'attribuer un job',
+	['attribuerjob'] = 'Attribuer un job',
+	['choisiridmenu'] = 'Joueurs Connectés',
+	['choisiridmenu1'] = 'Choisir un joueur',
+	['choisirid'] = 'Choisir le joueur ',
+	['choisirmetier'] = 'Choisir d\'aller dans le/la/les ',
+	['choisirgrade'] = 'Choisir de devenir ',
+	['metiermenu'] = 'Métier',
+	['metiermenu1'] = 'Choisir un métier',
+	['grademenu'] = 'Grade',
+	['grademenu1'] = 'Choisir un grade',
+	['notif1'] = 'Vous vous êtes bien attribué le métier de ~r~',
+	['notif2'] = '~w~ pour devenir ~b~',
+	['notif3'] = 'Vous lui avez bien attribué le métier de ~r~',
+	['notif4'] = '~w~ pour qu\'il devienne ~b~'
+}
